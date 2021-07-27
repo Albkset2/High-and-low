@@ -12,7 +12,7 @@ def statement_generator(statement, deco):
 def instructions():
     print("you are stupid")
     print()
-    print("you are gay")
+    print("you are op")
     print()
     print("nicely done mate")
 def welcome():
@@ -37,8 +37,26 @@ def yes_no(question):
         else:
             print("Please enter yes or no")
 
+def players():
+    player1 = None
+    while not player1:
+        player1 =input("What name would you like to use  ").strip()
+        print()
+    
+    player2 = None
+    while not player2:
+        player2 = input("what name would you like to use  ").strip()
+        print()
+
+    print("Match with be between " + player1 + " and " + player2)
+    print()
+    return player1, player2
+
+
+
 
 
 welcome()
+player1, player2 = players()
 print()
 print()
