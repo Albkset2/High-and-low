@@ -1,5 +1,8 @@
+from portals3 import SLEEP_BETWEEN_ACTIONS
 import random
+import time
 player_pos = 0
+SLEEP_BETWEEN_ACTIONS = 1
 
 
 black_hole = {
@@ -76,6 +79,14 @@ class Colors:
 def move(old_value):
     return old_value + random.choice([1, 2, 3, 4, 5, 6])
 
+black_hole_text = [
+    "sad",
+    "oh no",
+    "too bad",
+    "better luck next time",
+    "You have been sucked back"
+]
+
 def draw_board(board) -> None:
     for y in board:
         for _ in y:
@@ -110,10 +121,14 @@ def statement_generator(statement, deco):
 
 def instructions():
     print("WElcome to portals")
+    print("portals and black holes is a copy og snakes and ladders but instead of ladder. \n We will be using portals and instead of snakes black hole will be used.")
     print()
-    print("BLUE IS FOR PORTALS \n USEFUL FOR SPEEDRUN SEND YOU TO HIGHER LEVELS")
+    print("To start the game we first have to select a mode \n Solo is for when you are playing alone and duo is for when you are playing with someone else")
+    print("To roll the dice, the PLAYER has press 'enter'")
     print()
-    print("RED IS FOR BLACK HOLES \n DANGEROUS CAUSE THEY CAN RUIN YOUR RUN")
+    print("BLUE IS FOR PORTALS \n USEFUL FOR SPEEDRUN SENDS YOU TO HIGHER LEVELS")
+    print()
+    print("RED IS FOR BLACK HOLES \n DANGEROUS CAN RUIN YOUR RUN")
     print()
     print("GREEN IS FOR PLAYER AND THAT'S YOU")
 def welcome():
@@ -184,7 +199,7 @@ print()
 print()
 
 
-quesion1 = input("Valid inputs \n enter to row and xxx to quit: ")
+quesion1 = input("Valid inputs \n enter to row or xxx to quit: ")
 
 while quesion1 == "":
     player_pos = move(player_pos)
@@ -198,7 +213,7 @@ while quesion1 == "":
     if portal.get(player_pos) != None:
         player_pos = portal[player_pos]
 
-
+    time.sleep(SLEEP_BETWEEN_ACTIONS)
     draw_board([ 
         [ "100", " 99", " 98", " 97", " 96", " 95", " 94", " 93", " 92", " 91" ],
         [ " 81", " 82", " 83", " 84", " 85", " 86", " 87", " 88", " 89", " 90" ],
