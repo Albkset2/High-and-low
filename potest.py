@@ -1,4 +1,38 @@
+
+
 import random
+black_hole = {
+    8: 4,
+    18: 1,
+    26: 10,
+    39: 5,
+    51: 6,
+    54: 36,
+    56: 1,
+    60: 23,
+    75: 28,
+    83: 45,
+    85: 59,
+    90: 48,
+    92: 25,
+    97: 87,
+    99: 63
+}
+portal = {
+    3: 20,
+    6: 14,
+    11: 28,
+    15: 34,
+    17: 74,
+    22: 37,
+    38: 59,
+    49: 67,
+    57: 76,
+    61: 78,
+    73: 86,
+    81: 98,
+    88: 91
+}
 
 class TerminalColors:
     RESET = '\033[0m'
@@ -55,9 +89,14 @@ def draw_board(board) -> None:
         for piece in y:
             if str(player_pos) == piece.strip():
                 print(f" {TerminalColors.BACKGROUND_BRIGHT_GREEN}{piece}{TerminalColors.RESET} |", end="")
+            elif black_hole.get(int(piece.strip())) != None:
+                print(f" {TerminalColors.BACKGROUND_BRIGHT_RED}{piece}{TerminalColors.RESET} |", end="")
+            elif portal.get(int(piece.strip())) != None:
+                print(f" {TerminalColors.BACKGROUND_BRIGHT_BLUE}{piece}{TerminalColors.RESET} |", end="")
             else:
                 print(f" {piece} |", end="")
         print()
+            
 
     for _ in board[0]:
         print("------", end="")
@@ -75,6 +114,11 @@ while quesion1 == "":
 
     if player_pos > 100:
         player_pos = 100
+    
+    if black_hole.get(player_pos) != None:
+        player_pos = black_hole[player_pos]
+    if portal.get(player_pos) != None:
+        player_pos = black_hole[player_pos]
 
     draw_board([ 
         [ "100", " 99", " 98", " 97", " 96", " 95", " 94", " 93", " 92", " 91" ],

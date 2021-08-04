@@ -1,7 +1,41 @@
 import random
 player_pos = 0
 
-class TerminalColors:
+
+black_hole = {
+    8: 4,
+    18: 1,
+    26: 10,
+    39: 5,
+    51: 6,
+    54: 36,
+    56: 1,
+    60: 23,
+    75: 28,
+    83: 45,
+    85: 59,
+    90: 48,
+    92: 25,
+    97: 87,
+    99: 63
+}
+portal = {
+    3: 20,
+    6: 14,
+    11: 28,
+    15: 34,
+    17: 74,
+    22: 37,
+    38: 59,
+    49: 67,
+    57: 76,
+    61: 78,
+    73: 86,
+    81: 98,
+    88: 91
+}
+
+class Colors:
     RESET = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
@@ -50,7 +84,11 @@ def draw_board(board) -> None:
 
         for piece in y:
             if str(player_pos) == piece.strip():
-                print(f" {TerminalColors.BACKGROUND_BRIGHT_GREEN}{piece}{TerminalColors.RESET} |", end="")
+                print(f" {Colors.BACKGROUND_BRIGHT_GREEN}{piece}{Colors.RESET} |", end="")
+            elif black_hole.get(int(piece.strip())) != None:
+                print(f" {Colors.BACKGROUND_BRIGHT_RED}{piece}{Colors.RESET} |", end="")
+            elif portal.get(int(piece.strip())) != None:
+                print(f" {Colors.BACKGROUND_BRIGHT_BLUE}{piece}{Colors.RESET} |", end="")
             else:
                 print(f" {piece} |", end="")
         print()
@@ -71,11 +109,13 @@ def statement_generator(statement, deco):
     return ""
 
 def instructions():
-    print("you are stupid")
+    print("WElcome to portals")
     print()
-    print("you are op")
+    print("BLUE IS FOR PORTALS \n USEFUL FOR SPEEDRUN SEND YOU TO HIGHER LEVELS")
     print()
-    print("nicely done mate")
+    print("RED IS FOR BLACK HOLES \n DANGEROUS CAUSE THEY CAN RUIN YOUR RUN")
+    print()
+    print("GREEN IS FOR PLAYER AND THAT'S YOU")
 def welcome():
     statement_generator("welcome to portals","*")
     instructions()
@@ -144,13 +184,20 @@ print()
 print()
 
 
-quesion1 = input("why u likw to play again: ")
+quesion1 = input("Valid inputs \n enter to row and xxx to quit: ")
 
 while quesion1 == "":
     player_pos = move(player_pos)
+    
 
     if player_pos > 100:
         player_pos = 100
+
+    if black_hole.get(player_pos) != None:
+        player_pos = black_hole[player_pos]
+    if portal.get(player_pos) != None:
+        player_pos = portal[player_pos]
+
 
     draw_board([ 
         [ "100", " 99", " 98", " 97", " 96", " 95", " 94", " 93", " 92", " 91" ],
@@ -165,9 +212,10 @@ while quesion1 == "":
         [ "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8", "  9", " 10" ],
 
     ])
+    print(player1 +" has moved to "+ str(player_pos))
 
     if player_pos == 100:
-        print("You have won!")
+        statement_generator("You have won!", "*")
         break
 
     quesion1 = input("would u like to play again: ")
