@@ -84,7 +84,20 @@ black_hole_text = [
     "oh no",
     "too bad",
     "better luck next time",
-    "You have been sucked back"
+    "You have been sucked back",
+    "dang",
+    "boohoo",
+    "bummer"
+]
+portals_text = [
+    "woww",
+    "yaayyy"
+    "nailed it",
+    "woohoo",
+    "oh my God...",
+    "up and away",
+    "this never gets old"
+    
 ]
 
 def draw_board(board) -> None:
@@ -120,10 +133,10 @@ def statement_generator(statement, deco):
     return ""
 
 def instructions():
-    print("WElcome to portals")
-    print("portals and black holes is a copy og snakes and ladders but instead of ladder. \n We will be using portals and instead of snakes black hole will be used.")
+    
+    print("Portals and black holes is a copy of snakes and ladders but instead of ladders. \n We will be using portals and Black Holes will replace sankes.")
     print()
-    print("To start the game we first have to select a mode \n Solo is for when you are playing alone and duo is for when you are playing with someone else")
+    print("To start the game we first have to select a mode \nSolo is for when you are playing alone and duo is for when you are playing with someone else")
     print("To roll the dice, the PLAYER has press 'enter'")
     print()
     print("BLUE IS FOR PORTALS \n USEFUL FOR SPEEDRUN SENDS YOU TO HIGHER LEVELS")
@@ -132,7 +145,9 @@ def instructions():
     print()
     print("GREEN IS FOR PLAYER AND THAT'S YOU")
 def welcome():
-    statement_generator("welcome to portals","*")
+    print()
+    print()
+    statement_generator("WELCOME TO PORTALS","*")
     instructions()
     print ()
     
@@ -210,8 +225,20 @@ while quesion1 == "":
 
     if black_hole.get(player_pos) != None:
         player_pos = black_hole[player_pos]
+        print()
+        statement_generator(random.choice(black_hole_text),"~")
+        print()
+        print(player1 + " down to " + str(player_pos) )
+        print()
+
     if portal.get(player_pos) != None:
         player_pos = portal[player_pos]
+        print()
+        print(player1 + " jumped to " + str(player_pos))
+        print()
+        statement_generator(random.choice(portals_text), "#")
+        print()
+        
 
     time.sleep(SLEEP_BETWEEN_ACTIONS)
     draw_board([ 
@@ -230,10 +257,13 @@ while quesion1 == "":
     print(player1 +" has moved to "+ str(player_pos))
 
     if player_pos == 100:
+        print()
         statement_generator("You have won!", "*")
         break
-
-    quesion1 = input("would u like to play again: ")
+    print()
+    quesion1 = input(statement_generator("Would u like to roll again: ", "!"))
+    print()
     if quesion1 == "xxx":
         print("You have quit")
         break
+    
