@@ -142,3 +142,52 @@ while quesion1 == "":
     if quesion1 == "xxx":
         print("You have quit")
         break
+
+
+def get_player_names():
+    player1_name = None
+    while not player1_name:
+        player1_name = input(
+            "Please enter a valid name for first player: ").strip()
+
+    player2_name = None
+    while not player2_name:
+        player2_name = input(
+            "Please enter a valid name for second player: ").strip()
+
+    print("\nMatch will be played between '" +
+          player1_name + "' and '" + player2_name + "'\n")
+    return player1_name, player2_name
+
+
+player1_current_position = 0
+player2_current_position = 0
+
+while True:
+    input_1 = input("\n" + player1_name + ": " + random.choice(player_turn_text) + " Hit the enter to roll dice: ")
+    print("\nRolling dice...")
+    dice_value = get_dice_value()
+    time.sleep(SLEEP_BETWEEN_ACTIONS)
+    print(player1_name + " moving....")
+    
+    player1_current_position = snake_ladder(player1_name, player1_current_position, dice_value  
+    check_win(player1_name, player1_current_position    
+    input_2 = input("\n" + player2_name + ": " + random.choice(player_turn_text) + " Hit the enter to roll dice: ")
+    print("\nRolling dice...")
+    dice_value = get_dice_value()
+    time.sleep(SLEEP_BETWEEN_ACTIONS)
+    print(player2_name + " moving....")
+    player2_current_position = snake_ladder(player2_name, player2_current_position, dice_value  
+    check_win(player2_name, player2_current_position)
+
+
+
+
+
+
+
+
+
+
+
+
