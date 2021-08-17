@@ -163,7 +163,7 @@ def statement_generator(statement, deco):
 
 def instructions():
 
-    print("Portals and black holes is a copy of snakes and ladders but instead of ladders. \n We will be using portals and Black Holes will replace sankes.")
+    print("Portals and black holes is a copy of snakes and ladders but instead of ladders. \n We will be using portals and Black Holes will replace snakes.")
     print()
     print("To start the game we first have to select a mode \nSolo is for when you are playing alone and duo is for when you are playing with someone else")
     print("To roll the dice, the PLAYER has press 'enter'")
@@ -232,6 +232,7 @@ def snake(player_pos):
             print()
             statement_generator(random.choice(black_hole_text), "~")
             print(player_names[player_turn] + "down to " + str(player_pos))
+        return player_pos
 
 def portals(player_pos):
     if portal.get(player_pos) != None:
@@ -239,6 +240,7 @@ def portals(player_pos):
         print()
         statement_generator(random.choice(portals_text), "#")
         print(player_names[player_turn] + "moved up to " + str(player_pos))
+    return player_pos
 
 
 welcome()
@@ -251,6 +253,11 @@ player_turn = 0
 if hello == "solo":
     player_names = [input("Please enter a valid name for player: ").strip()]
     players = [0]
+
+
+
+
+
 elif hello == "duo":
     player_names = [
         input("Please enter a valid name for player 1: ").strip(),
@@ -272,17 +279,24 @@ elif hello == "xxx":
 
 quesion1 = input("Lets begin \n Enter to row or xxx to quit: ")
 print()
-
+life = 10
 while quesion1 == "":
     players[player_turn] = move(players[player_turn])
-
     
+
+    if hello == "solo":
+        if players[player_turn] == snake(players[player_turn]):
+            life =  life - 1
+            print("you have lost " + str(life) + " lives out of 10 lives")
+        if life < 1:
+            print("out of")
+            break
     if players[player_turn] > 100:
         players[player_turn] = 100
 
-    snake(players[player_turn])
+    players[player_turn] = snake(players[player_turn])
 
-    portals(players[player_turn])
+    players[player_turn] = portals(players[player_turn])
 
     time.sleep(SLEEP_BETWEEN_ACTIONS)
     draw_board(board, players)
