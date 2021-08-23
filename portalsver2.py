@@ -92,6 +92,16 @@ class Colors:
     BACKGROUND_BRIGHT_CYAN = '\033[46;1m'
     BACKGROUND_BRIGHT_WHITE = '\033[47;1m'
 
+player_colour = [
+
+    Colors.BACKGROUND_BRIGHT_GREEN, 
+    Colors.BACKGROUND_BRIGHT_YELLOW, 
+    Colors.BACKGROUND_BRIGHT_MAGENTA, 
+    Colors.BACKGROUND_BRIGHT_CYAN,
+    Colors.BACKGROUND_BRIGHT_WHITE,  ]   
+   
+    
+
 
 def move(old_value):
     return old_value + random.choice([1, 2, 3, 4, 5, 6])
@@ -120,18 +130,25 @@ portals_text = [
 
 
 def draw_board(board, players) -> None:
+
     for y in board:
+
         for _ in y:
             print("------", end="")
         print("-\n|", end="")
 
         for piece in y:
             found = False
+            i = 0
             for player in players:
+
                 if str(player) == piece.strip():
-                    print(f" {Colors.BACKGROUND_BRIGHT_GREEN}{piece}{Colors.RESET} |", end="")
+                    Color = player_colour[i % len(player_colour)]
+
+                    print(f" {Color}{piece}{Colors.RESET} |", end="")
                     found = True
                     break
+                i+=1
                 
                 
             if not found:
@@ -281,9 +298,10 @@ while quesion1 == "":
     
 
     if hello == "solo":
-        if players[player_turn] == snake(players[player_turn]):
+        if  black_hole.get(players[player_turn]) != None:
             life =  life - 1
             print("you have " + str(life) + " lives out of 10 lives")
+
         if life <= 0:
             print("You have out of lives")
             break
@@ -314,3 +332,5 @@ while quesion1 == "":
 
     player_turn = (player_turn + 1) % len(players)
 
+else:
+    print("Please enter a valid input")
