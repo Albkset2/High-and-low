@@ -246,12 +246,14 @@ def portals(player_pos):
 welcome()
 mode = ["solo", "duo","multi", "xxx"]
 
+
 hello = modes("What mode would you like to play \nAvailable options:  Solo, Duo and Multi \n : ",
               mode, "Please enter the available modes")
 
 player_turn = 0
 if hello == "solo":
     player_names = [input("Please enter a valid name for player: ").strip()]
+    print("Player name will be " + str(player_names))
     players = [0]
 
 elif hello == "duo":
@@ -275,6 +277,7 @@ elif hello == "xxx":
 
 quesion1 = input("Lets begin \n Enter to row or xxx to quit: ")
 print()
+print(player_names)
 life = 10
 while quesion1 == "":
     players[player_turn] = move(players[player_turn])

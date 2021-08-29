@@ -7,6 +7,8 @@ os.system("color")
 
 players = 0
 SLEEP_BETWEEN_ACTIONS = 0.5
+
+#data lists that will be uliti  zeed by the functions 
 board = [
     ["100", " 99", " 98", " 97", " 96", " 95", " 94", " 93", " 92", " 91"],
     [" 81", " 82", " 83", " 84", " 85", " 86", " 87", " 88", " 89", " 90"],
@@ -99,13 +101,6 @@ player_colour = [
     Colors.BACKGROUND_BRIGHT_MAGENTA, 
     Colors.BACKGROUND_BRIGHT_CYAN,
     Colors.BACKGROUND_BRIGHT_WHITE,  ]   
-   
-    
-
-
-def move(old_value):
-    return old_value + random.choice([1, 2, 3, 4, 5, 6])
-
 
 black_hole_text = [
     "sad",
@@ -124,11 +119,16 @@ portals_text = [
     "woohoo",
     "oh my God...",
     "up and away",
-    "this never gets old"
+    "this never gets old"]   
 
-]
+#player movement function
+def move(old_value):
+    return old_value + random.choice([1, 2, 3, 4, 5, 6])
 
 
+
+
+#does functions does the board 
 def draw_board(board, players) -> None:
 
     for y in board:
@@ -166,7 +166,7 @@ def draw_board(board, players) -> None:
         print("------", end="")
     print("-")
 
-
+#syles the game text
 def statement_generator(statement, deco):
     sides = deco * 4
     statement = "{} {} {}".format(sides, statement, sides)
@@ -177,19 +177,16 @@ def statement_generator(statement, deco):
 
     return ""
 
-
+#the instructions are in a functions that will be displayed at the start of the game as a part of the welcome functions 
 def instructions():
-
-    print("Portals and black holes is a copy of snakes and ladders but instead of ladders. \n We will be using portals and Black Holes will replace snakes.")
-    print()
-    print("To start the game we first have to select a mode \nSolo is for when you are playing alone and duo is for when you are playing with someone else")
+    print("To start the game we first have to select a mode \nSolo is for when you are playing alone, duo is for when you are playing with partner and finally \n Mutli, in mode you can play with your group of freinds. Max player: 5")
     print("To roll the dice, the PLAYER has press 'enter'")
     print()
     print("BLUE IS FOR PORTALS \n USEFUL FOR SPEEDRUN SENDS YOU TO HIGHER LEVELS")
     print()
     print("RED IS FOR BLACK HOLES \n DANGEROUS CAN RUIN YOUR RUN")
     print()
-    print("GREEN IS FOR PLAYER AND THAT'S YOU")
+    print("OTHER COLOURS FOR THE PLAYERS AND THAT'S YOU")
 
 
 def welcome():
@@ -199,7 +196,7 @@ def welcome():
     instructions()
     print()
 
-
+#hmmmm why are u here function and why were you created
 def yes_no(question):
     valid = False
     while not valid:
@@ -215,7 +212,7 @@ def yes_no(question):
         else:
             print("Please enter yes or no")
 
-
+#bruh u have been replaced
 def get_player_names():
     player1_name = None
     while not player1_name:
@@ -231,7 +228,7 @@ def get_player_names():
           player1_name + "' and '" + player2_name + "'\n")
     return player1_name, player2_name
 
-
+#This function is for the modes
 def modes(question, answer, error):
     valid = False
     while not valid:
@@ -243,6 +240,8 @@ def modes(question, answer, error):
         # output error if item not in list
         print(error)
         print()
+
+#The functions that move the players up or down depending on what they land on.
 def snake(player_pos):
         if black_hole.get(player_pos) != None:
             player_pos = black_hole[player_pos]
@@ -259,7 +258,14 @@ def portals(player_pos):
         print(player_names[player_turn] + "moved up to " + str(player_pos))
     return player_pos
 
-
+def get_int(question):
+  while True:
+    answer = input(question)
+    try:
+        value = int(answer)
+        return value
+    except ValueError:
+        print("Please enter a valid integer")
 welcome()
 mode = ["solo", "duo","multi", "xxx"]
 
@@ -279,7 +285,12 @@ elif hello == "duo":
     players = [0, 0]
 
 elif hello == "multi":
-    no_players = int(input("How many players : "))
+    no_players = get_int("How many players : ")
+    while no_players < 3 or no_players > 5:
+        print("The player limit is 5 and the minimal players fo this mode are 3 ")
+        no_players = int(input("How many players : "))
+    
+
     player_names = []
     players = []
     for i in range(no_players):
@@ -290,7 +301,9 @@ elif hello == "xxx":
     quit()
     
 
-quesion1 = input("Lets begin \n Enter to row or xxx to quit: ")
+#main body of the game 
+
+quesion1 = input("Lets begin \n Press Enter to row or xxx to quit: ")
 print()
 life = 10
 while quesion1 == "":
@@ -328,6 +341,7 @@ while quesion1 == "":
     print()
     if quesion1 == "xxx":
         print("You have quit")
+        print("Thanks for playing")
         break
 
     player_turn = (player_turn + 1) % len(players)
