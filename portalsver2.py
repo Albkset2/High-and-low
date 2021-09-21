@@ -247,7 +247,8 @@ def snake(player_pos):
             player_pos = black_hole[player_pos]
             print()
             statement_generator(random.choice(black_hole_text), "~")
-            print(player_names[player_turn] + "down to " + str(player_pos))
+            print("You have landed on a black hole")
+            print(player_names[player_turn] + " down to " + str(player_pos))
         return player_pos
 
 def portals(player_pos):
@@ -255,7 +256,8 @@ def portals(player_pos):
         player_pos = portal[player_pos]
         print()
         statement_generator(random.choice(portals_text), "#")
-        print(player_names[player_turn] + "moved up to " + str(player_pos))
+        print("You have landed on a portal")
+        print(player_names[player_turn] + " moved up to " + str(player_pos))
     return player_pos
 
 def get_int(question):
@@ -269,6 +271,7 @@ def get_int(question):
 welcome()
 mode = ["solo", "duo","multi", "xxx"]
 
+
 hello = modes("What mode would you like to play \nAvailable options:  Solo, Duo and Multi \n : ",
               mode, "Please enter the available modes")
 
@@ -276,6 +279,9 @@ player_turn = 0
 if hello == "solo":
     player_names = [input("Please enter a valid name for player: ").strip()]
     players = [0]
+    print()
+    print("Watch out, when u land on a black hole you will lose a live and you only have 10. So good luck out there")
+    print()
 
 elif hello == "duo":
     player_names = [
@@ -285,6 +291,7 @@ elif hello == "duo":
     players = [0, 0]
 
 elif hello == "multi":
+    
     no_players = get_int("How many players : ")
     while no_players < 3 or no_players > 5:
         print("The player limit is 5 and the minimal players fo this mode are 3 ")
@@ -319,8 +326,7 @@ while quesion1 == "":
             print("You have out of lives")
             break
 
-    if players[player_turn] > 100:
-        players[player_turn] = 100
+    
 
     players[player_turn] = snake(players[player_turn])
 
@@ -331,6 +337,9 @@ while quesion1 == "":
 
     print(player_names[player_turn] + " has moved to " + str(players[player_turn]))
 
+    if players[player_turn]  > 100:
+        players[player_turn] = 100
+
     if players[player_turn] == 100:
         print()
         statement_generator(player_names[player_turn] + " has won!", "*")
@@ -339,12 +348,23 @@ while quesion1 == "":
     quesion1 = input(statement_generator(
         "Would u like to roll again: ", "!"))
     print()
-    if quesion1 == "xxx":
-        print("You have quit")
-        print("Thanks for playing")
-        break
+
+    while  quesion1 != "" and quesion1 !=  "xxx":
+        print("Please enter a valid input")
+        quesion1 = input(statement_generator(
+        "Would u like to roll again: ", "!"))
+
+        if quesion1 == "xxx":
+            quesion1 = yes_no("Are you sure you would like to quit, All progess will be lost")
+
+            if quesion1 == "yes":
+                print("You have quit")
+                print("Thanks for playing")
+                break
+            elif quesion1 == "no":
+                quesion1 = input(statement_generator(
+                "Would u like to roll again: ", "!"))
+        
 
     player_turn = (player_turn + 1) % len(players)
 
-else:
-    print("Please enter a valid input")
