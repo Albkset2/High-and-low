@@ -242,7 +242,6 @@ def modes(question, answer, error):
         print()
 
 #The functions that move the players up or down depending on what they land on.
-#Thia is the black hole function that sends the player down the board.
 def snake(player_pos):
         if black_hole.get(player_pos) != None:
             player_pos = black_hole[player_pos]
@@ -251,7 +250,7 @@ def snake(player_pos):
             print("You have landed on a black hole")
             print(player_names[player_turn] + " down to " + str(player_pos))
         return player_pos
-#The portal function that sends the player to a higher live on the board.
+
 def portals(player_pos):
     if portal.get(player_pos) != None:
         player_pos = portal[player_pos]
@@ -261,7 +260,6 @@ def portals(player_pos):
         print(player_names[player_turn] + " moved up to " + str(player_pos))
     return player_pos
 
-#This is used to select the mode
 def get_int(question):
   while True:
     answer = input(question)
@@ -273,10 +271,10 @@ def get_int(question):
 welcome()
 mode = ["solo", "duo","multi", "xxx"]
 
-#ths question calls the get_in(question)
+
 hello = modes("What mode would you like to play \nAvailable options:  Solo, Duo and Multi \n : ",
               mode, "Please enter the available modes")
-#When the player selects solo this 'if' statement will run and will ask for a username
+
 player_turn = 0
 if hello == "solo":
     player_names = [input("Please enter a valid name for player: ").strip()]
@@ -284,7 +282,7 @@ if hello == "solo":
     print()
     print("Watch out, when u land on a black hole you will lose a live and you only have 10. So good luck out there")
     print()
-#When the player selects 'duo' this if will run and will ask for usernames
+
 elif hello == "duo":
     player_names = [
         input("Please enter a valid name for player 1: ").strip(),
@@ -293,8 +291,7 @@ elif hello == "duo":
     players = [0, 0]
 
 elif hello == "multi":
-    #this code runs wjen multi is slected on the hello question. the code will add a item to the list per name added 
-    #the minimal number of player is 3 and max is 5.
+    
     no_players = get_int("How many players : ")
     while no_players < 3 or no_players > 5:
         print("The player limit is 5 and the minimal players fo this mode are 3 ")
@@ -318,7 +315,7 @@ print()
 life = 10
 while quesion1 == "":
     players[player_turn] = move(players[player_turn])
-    #this is the life system for the solo mode, it subtracts a live out of 10 lives when the player lands on a black hole
+    
 
     if hello == "solo":
         if  black_hole.get(players[player_turn]) != None:
@@ -329,13 +326,12 @@ while quesion1 == "":
             print("You have out of lives")
             break
 
-    #code for the board.
+    
 
     players[player_turn] = snake(players[player_turn])
 
     players[player_turn] = portals(players[player_turn])
 
-#creates the dealy between prints and draws the board
     time.sleep(SLEEP_BETWEEN_ACTIONS)
     draw_board(board, players)
 
@@ -349,7 +345,6 @@ while quesion1 == "":
         statement_generator(player_names[player_turn] + " has won!", "*")
         break
 
-#ask if the player wants to contiune playing 
     quesion1 = input(statement_generator(
         "Would u like to roll again: ", "!"))
     print()
@@ -358,7 +353,7 @@ while quesion1 == "":
         print("Please enter a valid input")
         quesion1 = input(statement_generator(
         "Would u like to roll again: ", "!"))
-#id player enter xxx instead of pressing return the game ends otherwise it loops till the player enters a valid input
+
         if quesion1 == "xxx":
             quesion1 = yes_no("Are you sure you would like to quit, All progess will be lost")
 
